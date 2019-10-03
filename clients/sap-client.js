@@ -45,25 +45,16 @@ exports.connect = function(callback){
 }
 
 // http://blog.maruskin.eu/2018/04/how-to-call-bapi-in-sap-from-nodejs-app.html
-exports.getUsers = function(callback){
+exports.sendBAPI = function(bapiName, parameters, callback){
   this.client.connect(function(err) {
     if (err) {
       return console.error('could not connect to server', err);
     }
-    this.client.invoke('BAPI_USER_GETLIST', {
-      MAX_ROWS: 3,
-      SELECTION_RANGE: [{
-        PARAMETER: "USERNAME",
-        SIGN:      "I",
-        OPTION:    "CP",
-        LOW:       "A*"
-      }]
-    },
+    this.client.invoke(bapiName, parameters,
     function(err, res) {
-      if (err) {
-        return console.error('Error invoking BAPI_USER_GETLIST:', err);
-      }
-      console.log('Result BAPI_USER_GETLIST:', res);
+      console.log('BAPI '+bapiName +' incomming...');
+      console.log('Error: ' + err);
+      console.log('Response: ' + res);
       callback(err, res);
     });
   });

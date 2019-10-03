@@ -9,10 +9,24 @@ sapClient.init({
   lang: process.env.LANG
 });
 exports.getUsers = function(callback){
-  sapClient.getUsers(function(err, res){
-    console.log("Yeah... we did it");
-    console.log(err);
-    console.log(res);
+  var bapiName = 'BAPI_USER_GETLIST';
+  var parameters = {
+    MAX_ROWS: 3,
+    SELECTION_RANGE: [{
+      PARAMETER: "USERNAME",
+      SIGN:      "I",
+      OPTION:    "CP",
+      LOW:       "A*"
+    }]
+  };
+
+  sapClient.sendBAPI(bapiName, parameters, function(err, res){
+    if (err) {
+      console.error('Error while getting the users...', err);
+      callback(null);
+      return;
+    }
+
     // TODO double check which data comes back and convert to viewmodels
     callback(res);
   });
