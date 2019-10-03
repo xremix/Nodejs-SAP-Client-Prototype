@@ -11,6 +11,17 @@ exports.init = function (env) {
   console.log('Client version: ', client.version);
 };
 
+exports.initByEnvironment = function () {
+  this.exports.init({
+    user: process.env.USER,
+    passwd: process.env.PASSWD,
+    ashost: process.env.ASHOST,
+    sysnr: process.env.SYSNR,
+    client: process.env.CLIENT,
+    lang: process.env.LANG
+  });
+}
+
 // Example from http://blog.maruskin.eu/2018/04/how-to-call-bapi-in-sap-from-nodejs-app.html
 /**
 * Sendnig data to a BAPI
@@ -29,7 +40,7 @@ exports.sendBAPI = function(bapiName, parameters, callback){
 
     this.client.invoke(bapiName, parameters,
       function(err, res) {
-        console.log('BAPI '+bapiName +' incomming...');
+        console.log('BAPI ' + bapiName +' incomming...');
         console.log('Error: ' + err);
         console.log('Response: ' + res);
         callback(err, res);

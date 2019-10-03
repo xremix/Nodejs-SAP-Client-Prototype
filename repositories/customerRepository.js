@@ -1,18 +1,16 @@
 var sapClient = require('../clients/sap-client');
 sapClient.initByEnvironment();
 
-exports.getUsers = function(callback){
-  // Docs: https://www.se80.co.uk/sapfms/b/bapi/bapi_user_getlist.htm
-  // DOCS for SELECTION_RANGE / bapiussrge:  https://www.sapdatasheet.org/abap/tabl/bapiussrge.html
-
-  var bapiName = 'BAPI_USER_GETLIST';
+exports.getCustomerById = function(customerNumber, callback){
+  // Docs: https://www.se80.co.uk/sapfms/b/bapi/bapi_customer_getlist.htm
+  // DOCS for IDRANGE https://www.sapdatasheet.org/abap/tabl/bapicustomer_idrange.html
+  var bapiName = 'BAPI_CUSTOMER_GETLIST';
   var parameters = {
     MAX_ROWS: 3,
-    SELECTION_RANGE: [{
-      PARAMETER: "USERNAME",
+    IDRANGE: [{
       SIGN:      "I",
       OPTION:    "CP",
-      LOW:       "A*"
+      LOW:       customerNumber
     }]
   };
 
