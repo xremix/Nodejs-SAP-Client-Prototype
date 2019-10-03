@@ -9,6 +9,7 @@ sapClient.init({
   lang: process.env.LANG
 });
 exports.getUsers = function(callback){
+  // Docs: https://www.consolut.com/s/sap-ides-zugriff/d/e/doc/E-BAPI_USER_GETLIST/
   var bapiName = 'BAPI_USER_GETLIST';
   var parameters = {
     MAX_ROWS: 3,

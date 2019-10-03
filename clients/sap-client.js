@@ -11,51 +11,28 @@ exports.init = function (env) {
   console.log('Client version: ', client.version);
 };
 
-exports.connect = function(callback){
+// Example from http://blog.maruskin.eu/2018/04/how-to-call-bapi-in-sap-from-nodejs-app.html
+/**
+* Sendnig data to a BAPI
+* @param {string}      bapiName         Name of the BAPI that will get called via RFC.
+* @param {structure}   parameters       ABAP table(array) containing an ABAP structure.
+* @param {function}    callback         Callback function that will response with an error and result object
+*/
+exports.sendBAPI = function(bapiName, parameters, callback){
   // open connection
   this.client.connect(function(err) {
     if (err) {
       // check for login/connection errors
       return console.error('could not connect to server', err);
     }
-
     // invoke ABAP function module, passing structure and table parameters
 
-    // ABAP structure
-    const structure = {
-      RFCINT4: 345,
-      RFCFLOAT: 1.23456789,
-      // or RFCFLOAT: require('decimal.js')('1.23456789'), // as Decimal object
-      RFCCHAR4: 'ABCD',
-      RFCDATE: '20180625', // in ABAP date format
-      // or RFCDATE: new Date('2018-06-25'), // as JavaScript Date object
-    };
-
-    // ABAP table
-    let table = [structure];
-
-    this.client.invoke('STFC_STRUCTURE', { IMPORTSTRUCT: structure, RFCTABLE: table }, function(err, res) {
-      if (err) {
-        return console.error('Error invoking STFC_STRUCTURE:', err);
-      }
-      console.log('STFC_STRUCTURE call result:', res);
-      callback(err, res);
-    });
-  });
-}
-
-// http://blog.maruskin.eu/2018/04/how-to-call-bapi-in-sap-from-nodejs-app.html
-exports.sendBAPI = function(bapiName, parameters, callback){
-  this.client.connect(function(err) {
-    if (err) {
-      return console.error('could not connect to server', err);
-    }
     this.client.invoke(bapiName, parameters,
-    function(err, res) {
-      console.log('BAPI '+bapiName +' incomming...');
-      console.log('Error: ' + err);
-      console.log('Response: ' + res);
-      callback(err, res);
+      function(err, res) {
+        console.log('BAPI '+bapiName +' incomming...');
+        console.log('Error: ' + err);
+        console.log('Response: ' + res);
+        callback(err, res);
+      });
     });
-  });
-};
+  };
