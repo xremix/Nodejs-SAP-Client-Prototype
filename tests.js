@@ -10,4 +10,8 @@ sapClient.init({
   lang: process.env.LANG
 });
 
-sapClient.connect(function(err, res){});
+sapClient.getUsers(function(err, res){
+  console.log("Yeah... we did it");
+  console.log(err);
+  console.log(res);
+});
