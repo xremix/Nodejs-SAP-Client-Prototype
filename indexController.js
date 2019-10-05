@@ -1,6 +1,6 @@
-require('dotenv').load();
+require('dotenv').config();
 const express = require('express');
-var sapClient = require('../clients/sap-client');
+var sapClient = require('./clients/sap-client');
 
 const app = express();
 const port = 8080;
