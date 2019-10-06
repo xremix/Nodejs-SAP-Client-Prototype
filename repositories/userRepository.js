@@ -1,6 +1,11 @@
 var sapClient = require('../clients/sap-client');
+var user = require('../viewModels/user');
 sapClient.initByEnvironment();
 
+/**
+* Get's all the users 
+* @param {function}      callback         Callback that get's the user model passed
+*/
 exports.getUsers = function(callback){
   // Docs: https://www.se80.co.uk/sapfms/b/bapi/bapi_user_getlist.htm
   // DOCS for SELECTION_RANGE / bapiussrge:  https://www.sapdatasheet.org/abap/tabl/bapiussrge.html
@@ -23,8 +28,10 @@ exports.getUsers = function(callback){
       return;
     }
 
-    // TODO double check which data comes back and convert to viewmodels
     callback(res);
+    // TODO double check which data comes back and convert to viewmodels
+    // var user = User.convertResponseToUser(res);
+    // callback(user);
   });
 
 });

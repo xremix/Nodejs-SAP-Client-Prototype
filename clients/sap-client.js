@@ -3,6 +3,10 @@ const rfcClient = require('node-rfc').Client;
 
 var client = null;
 
+/**
+* Initializes the SAP-CLient by passing the environment
+* @param {object}      env         A parameter with all environment variables. This should contain user, passwd, ashost, sysnr, client, lang
+*/
 exports.init = function (env) {
   // create new client with the ABAP system RFC connection parameters
   this.client = new rfcClient(env);
@@ -11,6 +15,9 @@ exports.init = function (env) {
   console.log('Client version: ', client.version);
 };
 
+/**
+* Initializes the SAP-Client by the environment variables
+*/
 exports.initByEnvironment = function () {
   this.exports.init({
     user: process.env.USER,
