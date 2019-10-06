@@ -1,5 +1,5 @@
 var sapClient = require('../clients/sap-client');
-var user = require('../viewModels/user');
+var User = require('../viewModels/user');
 sapClient.initByEnvironment();
 
 /**
