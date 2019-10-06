@@ -13,3 +13,13 @@ BAPI
 
 - Documentation for Get user list ([link](https://www.se80.co.uk/sapfms/b/bapi/bapi_customer_getlist.htm))
 - Documentation for ABAP Object Types ([link](https://www.sapdatasheet.org/abap/tabl/bapiussrge.html))
+
+## Run
+
+To install all the dependencies run
+
+`npm install`
+
+To run the project localy run
+
+`node .`
