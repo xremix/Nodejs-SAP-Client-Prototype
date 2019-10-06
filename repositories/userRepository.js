@@ -3,7 +3,7 @@ var user = require('../viewModels/user');
 sapClient.initByEnvironment();
 
 /**
-* Get's all the users 
+* Get's all the users
 * @param {function}      callback         Callback that get's the user model passed
 */
 exports.getUsers = function(callback){
@@ -34,4 +34,4 @@ exports.getUsers = function(callback){
     // callback(user);
   });
 
-});
+};

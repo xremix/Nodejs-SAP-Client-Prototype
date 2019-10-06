@@ -1,18 +1,24 @@
 require('dotenv').config();
 const express = require('express');
-var sapClient = require('./clients/sap-client');
+var path = require('path');
+var userRepository = require('./repositories/userRepository');
+
 
 const app = express();
 const port = 8080;
 
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname + '/index.html'));
+});
+
+app.get('/api/up', function (req, res) {
   res.send('Service is up!');
 });
 
-app.get('/users', function (req, res) {
+app.get('/api/users', function (req, res) {
   userRepository.getUsers(function(users){
     res.send(users);
   });
 });
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.listen(port, () => console.log(`Example app listening on http://localhost:${port}!`));
