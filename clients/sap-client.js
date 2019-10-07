@@ -9,7 +9,7 @@ var client = null;
 */
 exports.init = function (env) {
   // create new client with the ABAP system RFC connection parameters
-  this.client = new rfcClient(env);
+  client = new rfcClient(env);
 
   // echo SAP NW RFC SDK and nodejs/RFC binding version
   console.log('Client version: ', client.version);
@@ -19,7 +19,7 @@ exports.init = function (env) {
 * Initializes the SAP-Client by the environment variables
 */
 exports.initByEnvironment = function () {
-  this.exports.init({
+  exports.init({
     user: process.env.USER,
     passwd: process.env.PASSWD,
     ashost: process.env.ASHOST,
@@ -38,14 +38,14 @@ exports.initByEnvironment = function () {
 */
 exports.sendBAPI = function(bapiName, parameters, callback){
   // open connection
-  this.client.connect(function(err) {
+  client.connect(function(err) {
     if (err) {
       // check for login/connection errors
       return console.error('could not connect to server', err);
     }
     // invoke ABAP function module, passing structure and table parameters
 
-    this.client.invoke(bapiName, parameters,
+    client.invoke(bapiName, parameters,
       function(err, res) {
         console.log('BAPI ' + bapiName +' incomming...');
         console.log('Error: ' + err);

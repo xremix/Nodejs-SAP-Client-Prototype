@@ -1,6 +1,6 @@
 # Node.js SAP-Client Prototype
 
-This project will be a prototype to connect to the SAP-BAPI / RFCs via Node.js
+This project will show a prototype that connects to the SAP-BAPI / RFCs via Node.js
 
 ## Data Sources
 

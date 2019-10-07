@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 var path = require('path');
-var userRepository = require('./repositories/userRepositoryMock');
+var userRepository = require('./repositories/userRepository');
 
 
 const app = express();
