@@ -63,3 +63,5 @@ typings/
 
 # SAP SDK Logs
 *.trc
+# Other files
+/sources
