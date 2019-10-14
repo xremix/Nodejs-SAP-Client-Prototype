@@ -20,7 +20,7 @@ exports.init = function (env) {
 */
 exports.initByEnvironment = function () {
   exports.init({
-    user: process.env.USER,
+    user: process.env.SAP_USER,
     passwd: process.env.PASSWD,
     ashost: process.env.ASHOST,
     sysnr: process.env.SYSNR,
