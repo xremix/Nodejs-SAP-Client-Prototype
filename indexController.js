@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 var path = require('path');
 var userRepository = require('./repositories/userRepository');
+var customerRepository = require('./repositories/customerRepository');
 
 
 const app = express();
@@ -18,6 +19,17 @@ app.get('/api/up', function (req, res) {
 app.get('/api/users', function (req, res) {
   userRepository.getUsers(function(users){
     res.send(users);
+  });
+});
+
+app.get('/api/customers/:id', function (req, res) {
+  customerRepository.getCustomerById(req.params.id, function(customers){
+    res.send(customers);
+  });
+});
+app.get('/api/customers/search', function (req, res) {
+    customerRepository.searchCustomerById(req.params.q, function(customers){
+    res.send(customers);
   });
 });
 
