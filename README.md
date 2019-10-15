@@ -14,12 +14,13 @@ BAPI
 - Documentation for Get user list ([link](https://www.se80.co.uk/sapfms/b/bapi/bapi_customer_getlist.htm))
 - Documentation for ABAP Object Types ([link](https://www.sapdatasheet.org/abap/tabl/bapiussrge.html))
 
+## Install
+
+- Make sure you installed the [SAP NetWeaver RFC SDK](https://sap.github.io/node-rfc/install.html#sap-nw-rfc-sdk-installation)
+- Install node dependencies `npm install`
+
 ## Run
 
-To install all the dependencies run
-
-`npm install`
-
-To run the project localy run
+To run the project locally run
 
 `node .`
