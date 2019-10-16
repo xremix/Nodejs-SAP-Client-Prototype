@@ -1,9 +1,0 @@
-Freischalten
-http://g11as1.informatik.tu-muenchen.de:8011/remotelogin
-
-Benutzer: H2452KW1053
-Kennung: h7wpjf4s
-
-
-Benutzer: LEARN-106
-Kennung: holunder
