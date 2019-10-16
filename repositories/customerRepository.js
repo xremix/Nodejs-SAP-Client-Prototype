@@ -1,5 +1,5 @@
-var sapClient = require('../clients/sap-client');
-sapClient.initByEnvironment();
+var sapRfcService = require('../services/sapRfcService');
+sapRfcService.initByEnvironment();
 
 exports.searchCustomerById = function(query, callback){
   // Docs: https://www.se80.co.uk/sapfms/b/bapi/bapi_customer_getlist.htm
@@ -14,7 +14,7 @@ exports.searchCustomerById = function(query, callback){
     }]
   };
 
-  sapClient.sendBAPI(bapiName, parameters, function(err, res){
+  sapRfcService.sendBAPI(bapiName, parameters, function(err, res){
     if (err) {
       console.error('Error while getting the users...', err);
       callback(null);
@@ -37,7 +37,7 @@ exports.getCustomerById = function(id, callback){
     }]
   };
 
-  sapClient.sendBAPI(bapiName, parameters, function(err, res){
+  sapRfcService.sendBAPI(bapiName, parameters, function(err, res){
     if (err) {
       console.error('Error while getting the users...', err);
       callback(null);

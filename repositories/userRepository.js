@@ -1,6 +1,6 @@
-var sapClient = require('../clients/sap-client');
+var sapRfcService = require('../services/sapRfcService');
 var User = require('../viewModels/user');
-sapClient.initByEnvironment();
+sapRfcService.initByEnvironment();
 
 /**
 * Get's all the users
@@ -21,7 +21,7 @@ exports.getUsers = function(callback){
     }]
   };
 
-  sapClient.sendBAPI(bapiName, parameters, function(err, res){
+  sapRfcService.sendBAPI(bapiName, parameters, function(err, res){
     if (err) {
       console.error('Error while getting the users...', err);
       callback(null);
