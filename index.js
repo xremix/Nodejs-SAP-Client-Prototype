@@ -16,7 +16,7 @@ app.get('/api/up', indexController.up);
 
 app.get('/api/users', userController.allUsers);
 
-app.get('/api/customers/:id', customerController.customerById);
 app.get('/api/customers/search', customerController.customerSearch);
+app.get('/api/customers/:id', customerController.customerById);
 
 app.listen(port, () => console.log(`Example app listening on http://localhost:${port}!`));

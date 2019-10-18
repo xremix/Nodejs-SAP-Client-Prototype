@@ -1,4 +1,5 @@
-const customerRepository = require('../repositories/customerRepository');
+// const customerRepository = require('../repositories/customerRepository');
+const customerRepository = require('../repositories/customerRepositoryMock');
 
 exports.customerById = function (req, res) {
   customerRepository.getCustomerById(req.params.id, function(customers){
@@ -7,7 +8,7 @@ exports.customerById = function (req, res) {
 };
 
 exports.customerSearch = function (req, res) {
-    customerRepository.searchCustomerById(req.params.q, function(customers){
+  customerRepository.searchCustomerById(req.params.q, function(customers){
     res.send(customers);
   });
 };

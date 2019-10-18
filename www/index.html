@@ -57,7 +57,7 @@
 	<div class="container mt-5">
 		<h1 id="title">Node.js SAP Prototype</h1>
 		<div class="jumbotron">
-			<h2>Users</h2>
+			<h2>Customers</h2>
 			<p class="result">Loading...</p>
 		</div>
 	</div>
@@ -68,21 +68,21 @@
 	<script type="text/javascript">
 	"use strict";
 
-	var users = [];
-	var allUsers = [];
+	var customers = [];
+	var allCustomers = [];
 	var self = this;
-	$.get( "api/users", function( data ) {
-		self.users = data;
-		self.allUsers = self.users;
-		showUsers();
+	$.get( "api/customers/search", function( data ) {
+		self.customers = data;
+		self.allCustomers = self.customers;
+		showCustomers();
 	});
 
-	function showUsers(){
-		var users = self.users;
+	function showCustomers(){
+		var customers = self.customers;
 		var html = '<ul>';
-		for (var i = 0; i < users.length; i++) {
+		for (var i = 0; i < customers.length; i++) {
 			html += `
-			<li><i class="fa fa-user text-primary"></i> [${users[i].id}] ${users[i].name}</li>
+			<li><i class="fa fa-user text-primary"></i> [${customers[i].id}] ${customers[i].name}</li>
 			`;
 		}
 		html += '</ul>';
@@ -90,8 +90,8 @@
 	}
 	function search(){
 		var query = $('#search').val();
-		self.users = self.allUsers.filter(u => u.name.includes(query));
-		showUsers();
+		self.customers = self.allCustomers.filter(u => u.name.includes(query));
+		showCustomers();
 	};
 
 	$("#search-button").click(function(e) {
