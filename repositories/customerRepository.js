@@ -1,4 +1,6 @@
-var sapRfcService = require('../services/sapRfcService');
+var Customer = require('../viewModels/customer');
+var Customer = require('../viewModels/customer');
+
 sapRfcService.initByEnvironment();
 
 exports.searchCustomerById = function(query, callback){
@@ -21,8 +23,7 @@ exports.searchCustomerById = function(query, callback){
       return;
     }
 
-    // TODO double check which data comes back and convert to viewmodels
-    callback(res);
+    callback(Customer.convertResponseToCustomer(res));
   });
 };
 
@@ -44,7 +45,6 @@ exports.getCustomerById = function(id, callback){
       return;
     }
 
-    // TODO double check which data comes back and convert to viewmodels
-    callback(res);
+    callback(Customer.convertResponseToCustomer(res));
   });
 };
