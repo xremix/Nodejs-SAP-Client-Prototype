@@ -58,7 +58,7 @@
 		<h1 id="title">Node.js SAP Prototype</h1>
 		<div class="jumbotron">
 			<h2>Customers</h2>
-			<p class="result">Loading...</p>
+			<p class="result">Please search...</p>
 		</div>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -71,11 +71,6 @@
 	var customers = [];
 	var allCustomers = [];
 	var self = this;
-	$.get( "api/customers/search", function( data ) {
-		self.customers = data;
-		self.allCustomers = self.customers;
-		showCustomers();
-	});
 
 	function showCustomers(){
 		var customers = self.customers;
@@ -90,7 +85,13 @@
 	}
 	function search(){
 		var query = $('#search').val();
-		self.customers = self.allCustomers.filter(u => u.name.includes(query));
+		$.get( "api/customers/search?q=" + query, function( data ) {
+			self.customers = data;
+			self.allCustomers = self.customers;
+			showCustomers();
+		});
+		self.customers = self.allCustomers;
+		// self.customers = self.allCustomers.filter(u => u.name.includes(query));
 		showCustomers();
 	};
 

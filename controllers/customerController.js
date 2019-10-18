@@ -8,7 +8,13 @@ exports.customerById = function (req, res) {
 };
 
 exports.customerSearch = function (req, res) {
-  customerRepository.searchCustomerById(req.params.q, function(customers){
-    res.send(customers);
-  });
+  var query = req.query.q;
+  if(!query){
+    res.status(400).end();
+  }else{
+    customerRepository.searchCustomerById(query, function(customers){
+      res.send(customers);
+    });
+  }
+
 };
