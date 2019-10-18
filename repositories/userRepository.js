@@ -12,7 +12,7 @@ exports.getUsers = function(callback){
 
   var bapiName = 'BAPI_USER_GETLIST';
   var parameters = {
-    MAX_ROWS: 3,
+    MAXROWS: 3,
     SELECTION_RANGE: [{
       PARAMETER: "USERNAME",
       SIGN:      "I",

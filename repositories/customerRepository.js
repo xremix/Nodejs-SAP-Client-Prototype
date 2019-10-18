@@ -6,7 +6,7 @@ exports.searchCustomerById = function(query, callback){
   // DOCS for IDRANGE https://www.sapdatasheet.org/abap/tabl/bapicustomer_idrange.html
   var bapiName = 'BAPI_CUSTOMER_GETLIST';
   var parameters = {
-    MAX_ROWS: 3,
+    MAXROWS: 3,
     IDRANGE: [{
       SIGN:      "I",
       OPTION:    "CP", // contains pattern
@@ -29,7 +29,7 @@ exports.searchCustomerById = function(query, callback){
 exports.getCustomerById = function(id, callback){
   var bapiName = 'BAPI_CUSTOMER_GETLIST';
   var parameters = {
-    MAX_ROWS: 3,
+    MAXROWS: 3,
     IDRANGE: [{
       SIGN:      "I",
       OPTION:    "EQ", // contains pattern
