@@ -1,4 +1,4 @@
-var Customer = require('../viewModels/customer');
+var sapRfcService = require('../services/sapRfcService');
 var Customer = require('../viewModels/customer');
 
 sapRfcService.initByEnvironment();
@@ -8,10 +8,10 @@ exports.searchCustomerById = function(query, callback){
   // DOCS for IDRANGE https://www.sapdatasheet.org/abap/tabl/bapicustomer_idrange.html
   var bapiName = 'BAPI_CUSTOMER_GETLIST';
   var parameters = {
-    MAXROWS: 3,
+    MAXROWS: 1,
     IDRANGE: [{
       SIGN:      "I",
-      OPTION:    "CP", // contains pattern
+      OPTION:    "EQ", // contains pattern
       LOW:       query
     }]
   };
@@ -30,7 +30,6 @@ exports.searchCustomerById = function(query, callback){
 exports.getCustomerById = function(id, callback){
   var bapiName = 'BAPI_CUSTOMER_GETLIST';
   var parameters = {
-    MAXROWS: 3,
     IDRANGE: [{
       SIGN:      "I",
       OPTION:    "EQ", // contains pattern
