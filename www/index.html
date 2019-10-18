@@ -77,11 +77,14 @@
 		var html = '<ul>';
 		for (var i = 0; i < customers.length; i++) {
 			html += `
-			<li><i class="fa fa-user text-primary"></i> [${customers[i].id}] ${customers[i].name}</li>
+			<li><i class="fa fa-user text-primary"></i> <a onclick="showCustomer()">[${customers[i].id}] ${customers[i].name}</a>	</li>
 			`;
 		}
 		html += '</ul>';
 		$( ".result" ).html(html);
+	}
+	function showCustomer(customerId){
+		alert(customerId);
 	}
 	function search(){
 		var query = $('#search').val();

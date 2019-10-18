@@ -12,15 +12,15 @@ class Customer {
 
   static convertResponseToCustomer(sapResponse){
     return sapResponse.ADDRESSDATA.map(a => new Customer({
-      this.id = a.CUSTOMER;
-      this.name = a.NAME;
-      this.country = a.COUNTRY;
-      this.zip = a.POSTL_COD1;
-      this.address = a.STREET;
-      this.phone = a.TEL1_NUMBR;
-      this.fax = a.FAX_NUMBER;
+      id: a.CUSTOMER,
+      name: a.NAME,
+      country: a.COUNTRY,
+      zip: a.POSTL_COD1,
+      address: a.STREET,
+      phone: a.TEL1_NUMBR,
+      fax: a.FAX_NUMBER,
     }));
   }
 }
 
-module.exports = Customer;
+module.exports =  Customer;
