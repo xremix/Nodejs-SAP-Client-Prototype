@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Hello Playground</title>
+	<title>SAP Customer Search</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	<style type="text/css">
@@ -17,14 +17,10 @@
 
 
 
-
-
-
-
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container">
 
-			<a class="navbar-brand" href="#">Node.js SAP Prototype</a>
+			<a class="navbar-brand" href="#">SAP Customer Search</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -51,59 +47,94 @@
 
 
 
-
-
-
 	<div class="container mt-5">
-		<h1 id="title">Node.js SAP Prototype</h1>
+		<h1 id="title">SAP Customer Search</h1>
 		<div class="jumbotron">
 			<h2>Customers</h2>
-			<p class="result">Please search...</p>
+			<p class="result">Please use the searchbar to find customers...</p>
 		</div>
 	</div>
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-	<script type="text/javascript">
-	"use strict";
 
-	var customers = [];
-	var allCustomers = [];
-	var self = this;
 
-	function showCustomers(){
-		var customers = self.customers;
-		var html = '<ul>';
-		for (var i = 0; i < customers.length; i++) {
-			html += `
-			<li><i class="fa fa-user text-primary"></i> <a onclick="showCustomer()">[${customers[i].id}] ${customers[i].name}</a>	</li>
-			`;
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel"><span id="modal-title"></span></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p><b><span id="modal-body-customer-id"></span> - <span id="modal-body-customer-name"></span></b></p>
+					<p>Country: <span id="modal-body-customer-country"></span><br/>
+						Zip: <span id="modal-body-customer-zip"></span><br/>
+						Address: <span id="modal-body-customer-address"></span><br/>
+						Phone: <span id="modal-body-customer-phone"></span><br/>
+						Fax: <span id="modal-body-customer-fax"></span></p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+		<script type="text/javascript">
+		"use strict";
+
+		var customers = [];
+		var allCustomers = [];
+		var self = this;
+
+		function showCustomers(){
+			var customers = self.customers;
+			var html = '<ul>';
+			for (var i = 0; i < customers.length; i++) {
+				html += `
+				<li><i class="fa fa-user text-primary"></i> <button class="btn btn-link" onclick="openCustomerDetails(${i})">[${customers[i].id}] ${customers[i].name}</button>	</li>
+				`;
+			}
+			html += '</ul>';
+			$( ".result" ).html(html);
 		}
-		html += '</ul>';
-		$( ".result" ).html(html);
-	}
-	function showCustomer(customerId){
-		alert(customerId);
-	}
-	function search(){
-		var query = $('#search').val();
-		$.get( "api/customers/search?q=" + query, function( data ) {
-			self.customers = data;
-			self.allCustomers = self.customers;
+
+		function search(){
+			var query = $('#search').val();
+			$.get( "api/customers/search?q=" + query, function( data ) {
+				self.customers = data;
+				self.allCustomers = self.customers;
+				showCustomers();
+			});
+			self.customers = self.allCustomers;
+			// self.customers = self.allCustomers.filter(u => u.name.includes(query));
 			showCustomers();
+		};
+
+
+		function openCustomerDetails(i){
+			$('#modal-title').text(customers[i].name);
+			$('#modal-body-customer-id').text(customers[i].id);
+			$('#modal-body-customer-name').text(customers[i].name);
+			$('#modal-body-customer-country').text(customers[i].country);
+			$('#modal-body-customer-zip').text(customers[i].zip);
+			$('#modal-body-customer-address').text(customers[i].address);
+			$('#modal-body-customer-phone').text(customers[i].phone);
+			$('#modal-body-customer-fax').text(customers[i].fax);
+			$('#exampleModal').modal()
+		}
+
+		$("#search-button").click(function(e) {
+			e.preventDefault();
+			search();
 		});
-		self.customers = self.allCustomers;
-		// self.customers = self.allCustomers.filter(u => u.name.includes(query));
-		showCustomers();
-	};
-
-	$("#search-button").click(function(e) {
-		e.preventDefault();
-		search();
-	});
 
 
-	</script>
-</body>
-</html>
+		</script>
+	</body>
+	</html>
