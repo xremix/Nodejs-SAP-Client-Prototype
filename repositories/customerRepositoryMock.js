@@ -1,6 +1,6 @@
 var Customer = require('../viewModels/customer');
 
-function getMockResponse(customerEntries){
+function getMockResponse(customerEntries) {
   var mockResponse = {
     "RETURN": {
       "TYPE": "",
@@ -32,38 +32,38 @@ function getMockResponse(customerEntries){
 }
 
 
-exports.searchCustomerById = function(query, callback){
+exports.searchCustomerById = function(query, callback) {
   var customers = Customer.convertResponseToCustomer(getMockResponse([{
     "CUSTOMER": "1000012345",
     "SORT1": "123",
-    "NAME": "MyCustomer",
+    "NAME": "Bauhans GmbH",
     "COUNTRY": "DE",
     "COUNTRYISO": "DE",
-    "CITY": "München",
-    "POSTL_COD1": "80331",
+    "CITY": "Musterhausen",
+    "POSTL_COD1": "81234",
     "REGION": "12",
-    "STREET": "Sonnenstraße 8",
-    "TEL1_NUMBR": "089 / 1234 - 0",
-    "FAX_NUMBER": "089 / 1234567",
+    "STREET": "Musterstraße 1a",
+    "TEL1_NUMBR": "+4912345678",
+    "FAX_NUMBER": "+4912345679",
     "ADDRESS": "0000123456"
-  },{
+  }, {
     "CUSTOMER": "1000012346",
     "SORT1": "123",
-    "NAME": "MyCustomer 2",
+    "NAME": "Soundhead GmbH",
     "COUNTRY": "DE",
     "COUNTRYISO": "DE",
-    "CITY": "München",
-    "POSTL_COD1": "80331",
+    "CITY": "Musterhausen",
+    "POSTL_COD1": "81234",
     "REGION": "12",
-    "STREET": "Sonnenstraße 9",
-    "TEL1_NUMBR": "089 / 1234 - 0",
-    "FAX_NUMBER": "089 / 1234567",
+    "STREET": "Musterstraße 1b",
+    "TEL1_NUMBR": "+4987654321",
+    "FAX_NUMBER": "+4987654320",
     "ADDRESS": "0000123456"
   }]));
   callback(customers);
 };
 
-exports.getCustomerById = function(id, callback){
+exports.getCustomerById = function(id, callback) {
   var customer = Customer.convertResponseToCustomer(getMockResponse([{
     "CUSTOMER": "1000012345",
     "SORT1": "123",

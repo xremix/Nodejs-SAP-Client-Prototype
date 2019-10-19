@@ -12,6 +12,7 @@ class Order {
     .groupBy("SD_DOC")
     .map((value, key) => ({
       orderId: key,
+      creationDate: _.head(value).CREATION_DATE,
       products: value.map(function(v, k){
         return {
           id: v.ITM_NUMBER,
