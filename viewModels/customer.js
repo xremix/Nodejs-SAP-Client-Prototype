@@ -1,5 +1,4 @@
 class Customer {
-  // This is WIP
   constructor(parameters) {
     this.id = parameters.id;
     this.name = parameters.name;
@@ -23,4 +22,4 @@ class Customer {
   }
 }
 
-module.exports =  Customer;
+module.exports = Customer;

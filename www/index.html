@@ -16,7 +16,7 @@
 <body>
 
 
-
+	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container">
 
@@ -40,13 +40,10 @@
 				</form>
 			</div>
 		</div>
-
 	</nav>
 
 
-
-
-
+	<!-- Body -->
 	<div class="container mt-5">
 		<h1 id="title">SAP Customer Search</h1>
 		<div class="jumbotron">
@@ -54,7 +51,6 @@
 			<p class="result">Please use the searchbar to find customers...</p>
 		</div>
 	</div>
-
 
 
 	<!-- Modal -->
@@ -112,10 +108,8 @@
 				showCustomers();
 			});
 			self.customers = self.allCustomers;
-			// self.customers = self.allCustomers.filter(u => u.name.includes(query));
 			showCustomers();
 		};
-
 
 		function openCustomerDetails(i){
 			$('#modal-title').text(customers[i].name);
@@ -127,13 +121,18 @@
 			$('#modal-body-customer-phone').text(customers[i].phone);
 			$('#modal-body-customer-fax').text(customers[i].fax);
 			$('#exampleModal').modal()
+			loadOrdersForCustomer(customers[i].id);
+		}
+
+		function loadOrdersForCustomer(customerId){
+			$.get( "api/orders/" + customerId, function( data ) {
+			});
 		}
 
 		$("#search-button").click(function(e) {
 			e.preventDefault();
 			search();
 		});
-
 
 		</script>
 	</body>
