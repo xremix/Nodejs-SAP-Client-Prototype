@@ -24,3 +24,15 @@ BAPI
 To run the project locally run
 
 `node .`
+
+
+## Known issues
+
+If you recieve the following error, when running this on a MAC
+
+```
+ERROR       hostname 'YOURCOMPUTERSDNSNAME.local' unknown
+DETAIL      NiHLGetNodeAddr: hostname cached as unknown
+```
+
+Make sure to add the DNS name in your local hosts file
