@@ -1,3 +1,5 @@
+var _ = require('lodash');
+
 class Order {
   constructor(parameters) {
     this.id = parameters.id;
@@ -6,11 +8,20 @@ class Order {
   }
 
   static convertResponseToOrder(sapResponse){
-    return sapResponse.SALES_ORDERS.map(a => new Order({
-      id: a.ITM_NUMBER,
-      materialNumber: a.MATERIAL,
-      description: a.SHORT_TEXT,
-    }));
+    var mappedData = _.chain(sapResponse.SALES_ORDERS)
+    .groupBy("SD_DOC")
+    .map((value, key) => ({
+      orderId: key,
+      products: value.map(function(v, k){
+        return {
+          id: v.ITM_NUMBER,
+          materialNumber: v.MATERIAL,
+          description: v.SHORT_TEXT,
+        }
+      })
+    }))
+    .value();
+    return mappedData;
   }
 }
 
