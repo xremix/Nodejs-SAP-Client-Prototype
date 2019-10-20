@@ -15,7 +15,6 @@
 </head>
 <body>
 
-
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container">
@@ -48,7 +47,13 @@
 		<h1 id="title">SAP Customer Search</h1>
 		<div class="jumbotron">
 			<h2>Customers</h2>
-			<p class="result">Please use the searchbar to find customers...</p>
+			<div class="result">
+				<p class="text-center" style="font-size:1.5em">
+					<i class="fa fa-search" style="font-size:7em; color:#aaa;"></i><br/>
+					<b>Search</b>
+					Please use the searchbar to find customer and order details
+				</p>
+			</div>
 		</div>
 	</div>
 
@@ -72,13 +77,14 @@
 						Fax: <span id="modal-body-customer-fax"></span></p>
 					</div>
 					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" id="order-button" data-dismiss="modal">Orders</button>
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>
 		</div>
 		<!-- Order Modal -->
-		<div class="modal fade" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="customerModalLabel" aria-hidden="true">
+		<div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -88,79 +94,97 @@
 						</button>
 					</div>
 					<div class="modal-body">
-						<p><b><span id="modal-body-customer-id"></span> - <span id="modal-body-customer-name"></span></b></p>
-						<p>Country: <span id="modal-body-customer-country"></span><br/>
-							Zip: <span id="modal-body-customer-zip"></span><br/>
-							Address: <span id="modal-body-customer-address"></span><br/>
-							Phone: <span id="modal-body-customer-phone"></span><br/>
-							Fax: <span id="modal-body-customer-fax"></span></p>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>
+		</div>
 
 
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-			<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+		<script type="text/javascript">
+		"use strict";
 
-			<script type="text/javascript">
-			"use strict";
+		// Declarations
+		var customers = [];
+		var currentCustomer = {};
+		var self = this;
 
-			// Declarations
-			var customers = [];
-			var self = this;
+		// UI Stuff
+		function showCustomers(){
+			var customers = self.customers;
+			var html = '<ul>';
+			for (var i = 0; i < customers.length; i++) {
+				html += `
+				<li><button class="btn btn-link" onclick="openCustomerDetails(${i})"><i class="fa fa-user text-primary"></i> [${customers[i].id}] ${customers[i].name}</button>	</li>
+				`;
+			}
+			html += '</ul>';
+			$( ".result" ).html(html);
+		}
 
-			// UI Stuff
-			function showCustomers(){
-				var customers = self.customers;
-				var html = '<ul>';
-				for (var i = 0; i < customers.length; i++) {
-					html += `
-					<li><i class="fa fa-user text-primary"></i> <button class="btn btn-link" onclick="openCustomerDetails(${i})">[${customers[i].id}] ${customers[i].name}</button>	</li>
-					`;
+		function openCustomerDetails(i){
+			currentCustomer = customers[i];
+			$('#modal-title').text(currentCustomer.name);
+			$('#modal-body-customer-id').text(currentCustomer.id);
+			$('#modal-body-customer-name').text(currentCustomer.name);
+			$('#modal-body-customer-country').text(currentCustomer.country);
+			$('#modal-body-customer-zip').text(currentCustomer.zip);
+			$('#modal-body-customer-address').text(currentCustomer.address);
+			$('#modal-body-customer-phone').text(currentCustomer.phone);
+			$('#modal-body-customer-fax').text(currentCustomer.fax);
+			$('#customerModal').modal()
+		}
+
+		function loadOrdersToModal(orders){
+			var orderHtml = orders.map(o => `
+				<div>
+				<h3>Order ${o.orderId}</h3>
+				<b>Products:</b></br>
+				<ul>
+				${o.products.map(p => `
+					<li>${p.materialNumber} - ${p.description}</li>
+					`).join('')}
+					</ul>
+					</div>
+					`).join('');
+					$('#orderModal .modal-body').html(orderHtml);
+					$('#orderModal .modal-title').html('Orders for ' + currentCustomer.name);
 				}
-				html += '</ul>';
-				$( ".result" ).html(html);
-			}
 
-			function openCustomerDetails(i){
-				$('#modal-title').text(customers[i].name);
-				$('#modal-body-customer-id').text(customers[i].id);
-				$('#modal-body-customer-name').text(customers[i].name);
-				$('#modal-body-customer-country').text(customers[i].country);
-				$('#modal-body-customer-zip').text(customers[i].zip);
-				$('#modal-body-customer-address').text(customers[i].address);
-				$('#modal-body-customer-phone').text(customers[i].phone);
-				$('#modal-body-customer-fax').text(customers[i].fax);
-				$('#customerModal').modal()
-				loadOrdersForCustomer(customers[i].id);
-			}
+				// API Requests
+				function search(){
+					var query = $('#search').val();
+					$.get( "api/customers/search?q=" + query, function( data ) {
+						self.customers = data;
+						showCustomers();
+					});
+				};
 
-			// API Requests
-			function search(){
-				var query = $('#search').val();
-				$.get( "api/customers/search?q=" + query, function( data ) {
-					self.customers = data;
-					showCustomers();
+				function loadOrdersForCustomer(customerId){
+					$.get( "api/orders/" + customerId, function( data ) {
+						loadOrdersToModal(data);
+						$('#orderModal').modal('show')
+						$('#customerModal').modal('hide')
+					});
+				}
+
+				// Event Listeners
+				$("#search-button").click(function(e) {
+					e.preventDefault();
+					search();
 				});
-			};
-
-			function loadOrdersForCustomer(customerId){
-				$.get( "api/orders/" + customerId, function( data ) {
+				// Event Listeners
+				$("#order-button").click(function(e) {
+					e.preventDefault();
+					loadOrdersForCustomer(currentCustomer.id);
 				});
-			}
 
-			// Event Listeners
-			$("#search-button").click(function(e) {
-				e.preventDefault();
-				search();
-			});
-
-			</script>
-		</body>
-		</html>
+				</script>
+			</body>
+			</html>
