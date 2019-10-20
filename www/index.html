@@ -153,13 +153,13 @@
 					</ul>
 					</div>
 					`).join('');
-					$('#orderModal .modal-body').html(orderHtml);
-					$('#orderModal .modal-title').html('Orders for ' + currentCustomer.name);
+					document.querySelector('#orderModal .modal-title').innerHTML = 'Orders for ' + currentCustomer.name;
+					document.querySelector('#orderModal .modal-body').innerHTML = orderHtml;
 				}
 
 				// API Requests
 				function search(){
-					var query = $('#search').val();
+					var query = document.querySelector('#search').value;
 					$.get( "api/customers/search?q=" + query, function( data ) {
 						self.customers = data;
 						showCustomers();
@@ -175,15 +175,16 @@
 				}
 
 				// Event Listeners
-				$("#search-button").click(function(e) {
+				document.querySelector('#search-button').onclick = function(e) {
 					e.preventDefault();
 					search();
-				});
-				// Event Listeners
-				$("#order-button").click(function(e) {
+				};
+
+
+				document.querySelector("#order-button").onclick = function(e) {
 					e.preventDefault();
 					loadOrdersForCustomer(currentCustomer.id);
-				});
+				};
 
 				</script>
 			</body>

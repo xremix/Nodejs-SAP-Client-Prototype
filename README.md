@@ -28,11 +28,15 @@ To run the project locally run
 
 ## Known issues
 
-If you recieve the following error, when running this on a MAC
+If you recieve the following error, when running this on macOS
 
 ```
 ERROR       hostname 'YOURCOMPUTERSDNSNAME.local' unknown
 DETAIL      NiHLGetNodeAddr: hostname cached as unknown
 ```
 
-Make sure to add the DNS name in your local hosts file
+make sure to add an entry with your network IP to your local hosts file
+
+```
+INTERNALIP YOURCOMPUTERSDNSNAME
+```
