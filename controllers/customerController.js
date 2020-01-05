@@ -1,5 +1,5 @@
-// const customerRepository = require('../repositories/customerRepository');
-const customerRepository = require('../repositories/customerRepositoryMock');
+const customerRepository = require('../repositories/customerRepository');
+// const customerRepository = require('../repositories/customerRepositoryMock');
 
 exports.customerById = function (req, res) {
   customerRepository.getCustomerById(req.params.id, function(customers){

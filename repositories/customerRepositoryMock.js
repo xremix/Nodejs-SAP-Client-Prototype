@@ -31,7 +31,6 @@ function getMockResponse(customerEntries) {
   return mockResponse;
 }
 
-
 exports.searchCustomerById = function(query, callback) {
   var customers = Customer.convertResponseToCustomer(getMockResponse([{
     "CUSTOMER": "1000012345",

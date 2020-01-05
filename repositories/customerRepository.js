@@ -33,7 +33,7 @@ exports.getCustomerById = function(id, callback){
     MAXROWS: 1,
     IDRANGE: [{
       SIGN:      "I",
-      OPTION:    "EQ", // equals
+      OPTION:    "EQ",
       LOW:       id
     }]
   };

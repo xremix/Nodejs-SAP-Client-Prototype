@@ -27,11 +27,7 @@ exports.getUsers = function(callback){
       callback(null);
       return;
     }
-
     callback(res);
-    // TODO double check which data comes back and convert to viewmodels
-    // var user = User.convertResponseToUser(res);
-    // callback(user);
   });
 
 };

@@ -17,7 +17,6 @@ exports.orderByCustomer = function(customerId, callback) {
       callback(null);
       return;
     }
-
     callback(Order.convertResponseToOrder(res));
   });
 };
